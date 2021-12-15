@@ -35,26 +35,6 @@ form {
     flex-direction: column;
 }
 
-input {
-    border-width: 0;
-    border-bottom-width: 2px;
-    border-color: #EBEBEB;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding-inline: 6%;
-    padding-block: 8%;;
-    font-size: 19px;
-    font-style: italic;
-    font-weight: 500;
-    font-family: 'Work Sans', sans-serif;
-    color: #4b4b4b;
-}
-
-input::placeholder { 
-    font-weight: 600;
-    color: #9D9D9D;
-  }
-
 p{
     font-style: italic;
     font-size: 100;

@@ -33,6 +33,7 @@ export const CenterText = styled.div `
     border-radius: 30px;
     height: 2.5rem;   
     width: 9rem;  
+    margin-top: 1.1rem; 
     margin-bottom: 1.1rem; 
 `;
 

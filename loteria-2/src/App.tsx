@@ -2,12 +2,12 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 //Pages
-import Login from './pages/login/';
-import Home from './pages/home/';
-import Registration from './pages/registration/';
+import Login from './pages/login';
+import Home from './pages/home';
+import Registration from './pages/registration';
 import ResetPassword from './pages/resetPassword';
 import NewBet from './pages/newBet';
-import NotFound from './pages/notFound';
+import NotFound from './pages/notFound/';
 
 //Global Style
 import { GlobalStyle } from './globalStyle';

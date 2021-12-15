@@ -1,6 +1,6 @@
 import React from 'react';
 
-function newBet() {
+function NewBet() {
   return (
     <div className="newBet">
       <h1>newBet</h1>
@@ -8,4 +8,4 @@ function newBet() {
   );
 }
 
-export default newBet;
+export default NewBet;
