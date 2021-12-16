@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const ButtonStyle = styled.button `
+interface StyledProps {
+    color: string;
+}
+
+export const ButtonStyle = styled.button<StyledProps> `
     font-size: 14px;
     font-weight: 600;
     background: #fff;
@@ -11,7 +15,9 @@ export const ButtonStyle = styled.button `
     height: 34px;
     width: 112px;
     margin-top: 3vh;
-    margin-right: 2vw;
+    margin-right: 1vw;
+    color: ${props => props.color};
+    border-color: ${props => props.color};
 
     &:hover{
         opacity: 0.6;

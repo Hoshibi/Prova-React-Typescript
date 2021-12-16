@@ -49,6 +49,7 @@ export const Logo = styled.a `
     border-bottom: 6px solid #b5c401;
     border-radius: 3px;
     padding-left: 0vw !Important;
+    
 `;
 
 export const BtnLogo = styled.a `

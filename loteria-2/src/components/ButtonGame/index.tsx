@@ -2,9 +2,13 @@ import React from "react";
 
 import { ButtonStyle } from './styles';
 
-const ButtonGames: React.FC = () => {
+interface PropsType {
+    color: string;
+  }
+
+const ButtonGames: React.FC<PropsType> = ({ children, color }) => {
     return (
-        < ButtonStyle >Lotofácil</ ButtonStyle >
+        <ButtonStyle color={color}>{children}</ ButtonStyle >
     );
 };
 
