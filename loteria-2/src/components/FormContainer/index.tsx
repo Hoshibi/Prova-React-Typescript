@@ -1,6 +1,6 @@
 import React from 'react';
-import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 
+import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 import { Container, FormDiv, BtnGreen, BtnGray } from './styles'
 
 interface PropsType {
@@ -10,7 +10,7 @@ interface PropsType {
   back: boolean;
 }
 
-const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, btnGrayTitle, back}) => {
+const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, btnGrayTitle, back }) => {
 
   let typeBtnGray : string;
   back ? typeBtnGray = 'back' : typeBtnGray = 'other';

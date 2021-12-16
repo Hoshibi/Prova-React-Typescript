@@ -7,7 +7,7 @@ import Cart from '../components/Cart';
 function NewBet() {
   return (
     <>
-      <Navbar />
+      <Navbar inHome={false}/>
       <LotteryCard />
       <Cart />
     </>
