@@ -16,7 +16,6 @@ const PurchasedCard: React.FC<PropsType> = ({ numbers, date, value, gametype, co
             <Numbers>{numbers}</Numbers>
             <DateValue>{date} - ({value})</DateValue>
             <GameType color={color}>{gametype}</GameType>
-            {console.log(gametype)}
         </CardContainer>
     );
 };

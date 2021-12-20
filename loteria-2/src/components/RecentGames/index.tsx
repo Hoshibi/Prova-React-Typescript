@@ -6,13 +6,15 @@ import PurchasedCard from "../PurchasedCard";
 
 interface PropsTypes {
     infos: 
-        {
-            number: string;
-            date: string;
-            price: string;
-            game: string;
-            color: string;
-        }[]
+    {
+        color: string,
+        description: string,
+        id: number,
+        max_number: number,
+        price: number,
+        range: number,
+        type: string,
+      }[]
     ;
 }
 
@@ -25,8 +27,7 @@ const RecentGames: React.FC<PropsTypes> = ({ infos }) => {
             <ButtonGames color="#01AC66">Mega-Sena</ButtonGames>
             <ButtonGames color="#F79C31">Lotomania</ButtonGames>
             {  infos.map(function ( item ) { 
-                console.log(item.game)
-                return (<PurchasedCard numbers={item.number} date={item.date} value="R$ 2,50" gametype={item.game} color={item.color} />);
+                return (<PurchasedCard key={item.id} numbers={item.description} date={item.type} value="R$ 2,50" gametype={item.type} color={item.color} />);
             } ) }
         </Container>
     );

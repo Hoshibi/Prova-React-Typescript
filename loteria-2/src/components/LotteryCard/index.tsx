@@ -2,15 +2,34 @@ import React from 'react';
 
 import { Container, TitleBold, TitleNormal, BtnCompleteGame, BtnClearGame, BtnAdd } from './styles'
 
-const LotteryCard: React.FC = () => {
+import ButtonGame from '../ButtonGame';
+
+interface PropsType {
+    infos: {
+        color: string,
+        description: string,
+        id: number,
+        max_number: number,
+        price: number,
+        range: number,
+        type: string,
+    }[]
+}
+
+const LotteryCard: React.FC<PropsType> = ({ infos }) => {
     return (
         <Container>
             <TitleBold><strong>NEW BET</strong></TitleBold>
             <TitleNormal data-js="tituloGame"> FOR LOTAFÁCIL</TitleNormal>
             <h4>Choose a game</h4>
-            <div data-js="btnGames"></div>
+            <div> 
+                {  infos.map(function ( item ) { 
+                    return (<ButtonGame key={item.id} color={item.color}>{item.type}</ButtonGame>);
+                } ) }
+                
+            </div>
                 <h4>Fill your bet</h4>
-                <p data-js="explicaGame">Mark as many numbers as you want up to a maximum of 50. Win by hiting 15, 16 17, 18, 19 20 or none of the 20 numbers drawn</p>
+                <p data-js="explicaGame">{infos[0].description}</p>
             <div data-js="listaNumeros">
                 <div data-js="conjuntoNumeros"></div>
             </div>
