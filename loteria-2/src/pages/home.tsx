@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import RecentGames from '../components/RecentGames';
 import BtnNewBet from '../components/BtnNewBet';
 
 function Home() {
-
+  const navigate = useNavigate();
   const [info, setInfo] = useState([])
 
   const fetchBetHandler = useCallback(async () => {
@@ -31,6 +32,7 @@ function Home() {
 
   return (
     <>
+      <button onClick={() => { navigate('/') }}>Teste</button>
       <Navbar inHome={true}/>
       <RecentGames infos={info}/>
       <BtnNewBet />
