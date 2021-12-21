@@ -1,8 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 import { Container, FormDiv, BtnGreen, BtnGray } from './styles'
-import { Spinner } from 'react-bootstrap';
+// import { Spinner } from 'react-bootstrap';
 
 interface PropsType {
   title: string;
@@ -11,12 +12,18 @@ interface PropsType {
   back: boolean;
   onSubmit: (event: any) => void;
   isLoading: boolean;
+  link: string;
 }
 
-const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, btnGrayTitle, back, onSubmit, isLoading }) => {
+const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, btnGrayTitle, back, onSubmit, isLoading, link }) => {
+  const navigate = useNavigate();
 
   let typeBtnGray : string;
   back ? typeBtnGray = 'back' : typeBtnGray = 'other';
+
+  function buttonNavigateHandler() {
+    navigate(link);
+  }
   
   return (
       <Container >
@@ -25,17 +32,14 @@ const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, bt
           <form onSubmit={onSubmit}>
             {children}
             <BtnGreen>{btnGreenTitle}<HiArrowRight /></BtnGreen>
+            {/* {!!isLoading && <Spinner animation="border" variant="success" />} */}
           </form>
         </FormDiv>
-        {isLoading }
-        {!isLoading && 
-          <BtnGray back={typeBtnGray}>
-            {!!back && <HiArrowLeft />}
+          <BtnGray back={typeBtnGray} onClick={buttonNavigateHandler}>
+            {!!back && <HiArrowLeft /> }
             {btnGrayTitle}
             {!back && <HiArrowRight />}
           </BtnGray>
-        }
-        {!!isLoading && <Spinner animation="border" variant="success" />}
       </Container>
   );
 };

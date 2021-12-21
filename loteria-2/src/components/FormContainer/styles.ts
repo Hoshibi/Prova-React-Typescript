@@ -39,16 +39,6 @@ export const FormDiv = styled.div `
         display: flex;
         flex-direction: column;
     }
-
-    p{
-        font-style: italic;
-        font-size: 100;
-        font-size: 17px;
-        padding-inline: 7%;
-        padding-top: 7%;
-        text-align: right;
-        color: #C1C1C1;
-    }
 `;
 
 export const BtnGreen = styled.button `

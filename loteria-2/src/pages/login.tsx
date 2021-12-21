@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import TextAuth from '../components/TextAuth';
 import Input from '../components/Input';
+import ResetPasswordLink from '../components/ResetPasswordLink'
 
 function Login() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Login() {
       },
     })
       .then((res) => {
-        setIsLoading(true);
+        setIsLoading(false);
         if (res.ok) {
           navigate('/home');
           return res.json();
@@ -69,10 +70,10 @@ function Login() {
   return (
     <>
       <TextAuth />
-      <FormContainer title = "Authentication" btnGreenTitle = "Log In" btnGrayTitle = "Sign Up" back = {false} onSubmit={submitHandler} isLoading={isLoading}>
+      <FormContainer title = "Authentication" btnGreenTitle = "Log In" btnGrayTitle = "Sign Up" back = {false} onSubmit={submitHandler} isLoading={isLoading} link='/registration'>
         <Input type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
         <Input type = "password" placeholder = "Senha" onChange={passwordChangeHandler} value={password}/>
-        <p>I forget my password</p>
+        <ResetPasswordLink>I forget my password</ResetPasswordLink>
       </FormContainer>
     </>
   );
