@@ -3,9 +3,13 @@ import React from "react";
 import { BtnStyle } from './styles';
 import { HiArrowRight } from 'react-icons/hi';
 
-const BtnNewBet: React.FC = () => {
+interface PropsType {
+    onClick: () => void;
+  }
+
+const BtnNewBet: React.FC<PropsType> = ({onClick}) => {
     return (
-        <BtnStyle>New Bet <HiArrowRight /></BtnStyle>
+        <BtnStyle onClick={onClick}>New Bet <HiArrowRight /></BtnStyle>
     );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Container, Title, TitleFilter } from './styles';
-import ButtonGames from "../ButtonGame";
+import ButtonGame from "../ButtonGame";
 import PurchasedCard from "../PurchasedCard";
 
 interface PropsTypes {
@@ -23,9 +23,13 @@ const RecentGames: React.FC<PropsTypes> = ({ infos }) => {
         <Container>
             <Title>RECENT GAMES</Title>
             <TitleFilter>Filters</TitleFilter>
-            <ButtonGames color="#7F3992">Lotofácil</ButtonGames>
-            <ButtonGames color="#01AC66">Mega-Sena</ButtonGames>
-            <ButtonGames color="#F79C31">Lotomania</ButtonGames>
+            {/* Buttons game */}
+            {  infos.map(function ( item ) { 
+                    return (<ButtonGame key={item.id} color={item.color}>{item.type}</ButtonGame>);
+                } ) 
+            }
+
+            {/* Recent Games List */}
             {  infos.map(function ( item ) { 
                 return (<PurchasedCard key={item.id} numbers={item.description} date={item.type} value="R$ 2,50" gametype={item.type} color={item.color} />);
             } ) }

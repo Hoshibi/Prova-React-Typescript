@@ -8,7 +8,7 @@ import Input from '../components/Input';
 import ResetPasswordLink from '../components/ResetPasswordLink'
 
 function Login() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,7 +41,6 @@ function Login() {
       .then((res) => {
         setIsLoading(false);
         if (res.ok) {
-          navigate('/home');
           return res.json();
         } else {
           return res.json().then(() => {
@@ -49,18 +48,19 @@ function Login() {
 
             function isValidEmail(email:string){
               var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
-              console.log(regex.test(email));
               return regex.test(email);
             }
-
             if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
             if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
             if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0) { errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' }
             if(!!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0) { errorMessage='Email e/ou senha incorreta! Verifique novamente' }
-            console.log("Passou: ",errorMessage);
             throw new Error(errorMessage);
           });
         }
+      })
+      .then((data) => {
+        console.log(data.token.token);
+        // navigate('/home');
       })
       .catch((err) => {
         alert(err.message);

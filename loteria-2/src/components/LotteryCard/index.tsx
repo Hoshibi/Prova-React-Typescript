@@ -26,7 +26,6 @@ const LotteryCard: React.FC<PropsType> = ({ infos }) => {
                 {  infos.map(function ( item ) { 
                     return (<ButtonGame key={item.id} color={item.color}>{item.type}</ButtonGame>);
                 } ) }
-                
             </div>
                 <h4>Fill your bet</h4>
                 <p data-js="explicaGame">{infos[0].description}</p>
