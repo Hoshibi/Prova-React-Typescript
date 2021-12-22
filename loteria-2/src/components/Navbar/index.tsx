@@ -11,11 +11,11 @@ const Navbar: React.FC<PropsTypes> = ({ inHome }) => {
     return (
         <NavbarContainer>
             <ul>
-                <li><Logo href="/">TGL</Logo></li>
+                <li><Logo href="/home">TGL</Logo></li>
                 {!inHome && <li><BtnLogo href="/">Home</BtnLogo></li>}
             </ul>
             <ul>
-                <li><a href="/">Account</a></li>
+                <li><a href="/home">Account</a></li>
                 <li><a href="/">
                     Log out 
                     <HiArrowRight />

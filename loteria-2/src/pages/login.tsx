@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../store/auth';
 
 //Components
 import FormContainer from '../components/FormContainer';
@@ -8,12 +10,14 @@ import Input from '../components/Input';
 import ResetPasswordLink from '../components/ResetPasswordLink'
 
 function Login() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  //Input Change Handler
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -21,6 +25,12 @@ function Login() {
   const passwordChangeHandler = ( event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
+
+  //Submit Change Handler
+  function isValidEmail(email:string){
+    var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
+    return regex.test(email);
+  }
 
   const submitHandler = (event: any) => {
     event.preventDefault();
@@ -40,16 +50,13 @@ function Login() {
     })
       .then((res) => {
         setIsLoading(false);
+
         if (res.ok) {
           return res.json();
         } else {
           return res.json().then(() => {
             var errorMessage = "";
 
-            function isValidEmail(email:string){
-              var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
-              return regex.test(email);
-            }
             if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
             if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
             if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0) { errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' }
@@ -59,8 +66,8 @@ function Login() {
         }
       })
       .then((data) => {
-        console.log(data.token.token);
-        // navigate('/home');
+        dispatch(authActions.login(data.token.token));
+        navigate('/home');
       })
       .catch((err) => {
         alert(err.message);

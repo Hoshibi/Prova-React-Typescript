@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { RootStateOrAny, useSelector } from 'react-redux';
+// import { authActions } from '../store/auth';
 
 import Navbar from '../components/Navbar';
 import RecentGames from '../components/RecentGames';
@@ -7,53 +10,47 @@ import BtnNewBet from '../components/BtnNewBet';
 
 function Home() {
   const navigate = useNavigate();
+  const token = useSelector((state: RootStateOrAny) => state.auth.token);
+
   const [infoGame, setInfoGame] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
 
-  const fetchGameHandler = useCallback(async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:3333/cart_games');
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
-      }
-      const data = await response.json();
-      setInfoGame(data.types)
-    } catch (error) {
-      console.log(error)
-    }
+  //Get info Game
+  const getGameHandler = useCallback(async () => {
+    axios({
+      method: 'get',
+      url: 'http://127.0.0.1:3333/cart_games',
+    })
+      .then(function (response:any) {
+        setInfoGame(response.data.types)
+      })
   }, []);
 
-  const fetchRecentGamesHandler = useCallback(async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:3333/bet/all-bets?type%5B%5D=Lotof%C3%A1cil&type%5B%5D=Mega-Sena&type%5B%5D=Quina');
-      if (!response.ok) {
-        throw new Error('Something went wrong!');
+  //Get recent games
+  const getRecentGamesHandler = useCallback(async () => {
+    axios({
+      method: 'get',
+      url: 'http://127.0.0.1:3333/bet/all-bets?type%5B%5D=Lotof%C3%A1cil&type%5B%5D=Mega-Sena&type%5B%5D=Quina',
+      headers: {
+        'Authorization': 'Bearer NDI.stLjQmayq5mf3D8Ozv-y8_h_0-UDBPm9GGpHUk0sQhe3gOvCdTtD7kbvFrkg'
       }
-      const data = await response.json();
-      setRecentGames(data.types)
-      console.log("Aqui", data.types);
-    } catch (error) {
-      console.log(error)
-    }
+    })
+      .then(function (response:any) {
+        setRecentGames(response.data)
+      });
   }, []);
 
   useEffect(() => {
-    fetchGameHandler();
-  }, [fetchGameHandler]);
-
-  useEffect(() => {
-    fetchRecentGamesHandler();
-  }, [fetchRecentGamesHandler]);
-
-  console.log(infoGame);
-  console.log(recentGames);
+    getGameHandler();
+    getRecentGamesHandler()
+  }, [getGameHandler,getRecentGamesHandler]);
 
   return (
     <>
-      <button onClick={() => { navigate('/') }}>Teste</button>
       <Navbar inHome={true}/>
-      <RecentGames infos={infoGame}/>
+      <RecentGames typeGame={infoGame} recentGameInfo={recentGames}/>
       <BtnNewBet onClick={() => { navigate('/new-bet') }}/>
+      {console.log("token:", token)}
     </>
   );
 }

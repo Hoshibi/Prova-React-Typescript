@@ -10,6 +10,10 @@ export const BtnStyle = styled.button `
     font-weight: 600;
     font-size: 29px;
 
+    &:hover {
+        opacity: 0.7;
+    }
+
     & svg {
         font-size: 27px;
         margin-left: 1.1rem;
