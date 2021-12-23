@@ -30,8 +30,8 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
             <Title>RECENT GAMES</Title>
             <TitleFilter>Filters</TitleFilter>
             {/* Buttons game */}
-            {  typeGame.map(function ( item ) { 
-                    return (<ButtonGame key={item.id} color={item.color} id={item.id} resetFilter={true}>{item.type}</ButtonGame>);
+            {  typeGame.map(function ( item, index ) { 
+                    return (<ButtonGame key={item.id} color={item.color} id={item.id} index={index} resetFilter={true}>{item.type}</ButtonGame>);
                 } ) 
             }
 

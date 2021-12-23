@@ -1,9 +1,11 @@
-import React from 'react';
-import { useSelector, RootStateOrAny } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
 
 import { Container, TitleBold, TitleNormal, BtnCompleteGame, BtnClearGame, BtnAdd } from './styles'
 
+import ListNumbers from '../ListNumbers';
 import ButtonGame from '../ButtonGame';
+import { gameActions } from '../../store/gameControl';
 
 interface PropsType {
     infos: {
@@ -18,7 +20,23 @@ interface PropsType {
 }
 
 const LotteryCard: React.FC<PropsType> = ({ infos }) => {
+    const dispatch = useDispatch();
     const gameSelected = useSelector((state: RootStateOrAny) => state.game.gameSelected);
+    const indexGame = useSelector((state: RootStateOrAny) => state.game.indexGameSelected);
+
+    // Inicia setado o tipo de jogo (Primeiro da lista)
+    useEffect(() => {
+        dispatch(gameActions.setGame([1,0]));
+    },[dispatch]);
+
+    // Handler
+    function completeGameHandler(){
+        dispatch(gameActions.completeGame([infos[indexGame].range,infos[indexGame].max_number]))
+    }
+
+    function clearGameHandler(){
+        dispatch(gameActions.clearGame())
+    }
 
     return (
         <Container>
@@ -27,25 +45,26 @@ const LotteryCard: React.FC<PropsType> = ({ infos }) => {
 
             <h4>Choose a game</h4>
             <div> 
-                {  infos.map(function ( item ) { 
-                    return (<ButtonGame key={item.id} color={item.color} id={item.id} resetFilter={false}>{item.type}</ButtonGame>);
-                } ) }
+                {  infos.map(function ( item,index ) { 
+                    return (<ButtonGame key={item.id} color={item.color} id={item.id} index={index} resetFilter={false}>{item.type}</ButtonGame>);} ) 
+                }
             </div>
 
+            {/* Descrição do Jogo */}
             <h4>Fill your bet</h4>
-            {  infos
-                .filter( (item) => { return item.id === gameSelected })
-                .map(function ( item ) { 
-                    return (<p data-js="explicaGame">{item.description}</p>);
+            {  infos.filter( (item) => { return item.id === gameSelected }).map(function ( item ) { 
+                    return (<p key={item.id} data-js="explicaGame">{item.description}</p>); } ) 
+            }
+
+            {/* Lista dos Números da Cartela */}
+            {  infos.filter( (item) => { return item.id === gameSelected }).map(function ( item ) { 
+                    return (<ListNumbers key={item.id} range={item.range} color={item.color} max={item.max_number}/>);
                 } ) 
             }
-            <div data-js="listaNumeros">
-                <div data-js="conjuntoNumeros">1</div>
-            </div>
 
             {/* Buttons */}
-            <BtnCompleteGame data-js="btCompleteGame">Complete game</BtnCompleteGame>
-            <BtnClearGame data-js="btClearGame">Clear game</BtnClearGame>
+            <BtnCompleteGame data-js="btCompleteGame" onClick={completeGameHandler}>Complete game</BtnCompleteGame>
+            <BtnClearGame data-js="btClearGame" onClick={clearGameHandler}>Clear game</BtnClearGame>
             <BtnAdd className="btAdd" data-js="btAdd">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
                 Add to cart
