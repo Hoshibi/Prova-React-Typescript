@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector, RootStateOrAny } from 'react-redux';
+// import { gameActions } from '../../store/gameControl'
 
 import { Container, Title, TitleFilter } from './styles';
 import ButtonGame from "../ButtonGame";
@@ -21,6 +23,7 @@ interface PropsTypes {
 }
 
 const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
+    const gameSelected = useSelector((state: RootStateOrAny) => state.game.gameSelected);
 
     return (
         <Container>
@@ -28,14 +31,24 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
             <TitleFilter>Filters</TitleFilter>
             {/* Buttons game */}
             {  typeGame.map(function ( item ) { 
-                    return (<ButtonGame key={item.id} color={item.color}>{item.type}</ButtonGame>);
+                    return (<ButtonGame key={item.id} color={item.color} id={item.id} resetFilter={true}>{item.type}</ButtonGame>);
                 } ) 
             }
 
             {/* Recent Games List */}
-            { recentGameInfo.map(function ( item ) { 
-                return (<PurchasedCard key={item.id} numbers={item.choosen_numbers} date={item.created_at} value={item.price} gametype={item.type.type} idgame={item.type.id}/>);
-            } ) }
+            { gameSelected !== 0 &&
+                recentGameInfo
+                .filter( (item) => { return item.type.id === gameSelected })
+                .map( (item) => { 
+                    return (<PurchasedCard key={item.id} numbers={item.choosen_numbers} date={item.created_at} value={item.price} gametype={item.type.type} idgame={item.type.id}/>) ;
+                }) 
+            }
+            { gameSelected === 0 &&
+                recentGameInfo.map( (item) => { 
+                    return (<PurchasedCard key={item.id} numbers={item.choosen_numbers} date={item.created_at} value={item.price} gametype={item.type.type} idgame={item.type.id}/>) ;
+                }) 
+            }
+            
         </Container>
     );
 };

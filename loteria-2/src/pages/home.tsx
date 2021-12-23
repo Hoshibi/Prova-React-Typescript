@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { RootStateOrAny, useSelector } from 'react-redux';
-// import { authActions } from '../store/auth';
 
 import Navbar from '../components/Navbar';
 import RecentGames from '../components/RecentGames';
