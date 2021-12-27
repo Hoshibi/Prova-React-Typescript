@@ -1,10 +1,10 @@
-import React from "react";
-import { useSelector, RootStateOrAny } from 'react-redux';
-// import { gameActions } from '../../store/gameControl'
+import React, { useEffect } from "react";
+import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
 
 import { Container, Title, TitleFilter } from './styles';
 import ButtonGame from "../ButtonGame";
 import PurchasedCard from "../PurchasedCard";
+import { gameActions } from "../../store/gameControl";
 
 interface PropsTypes {
     recentGameInfo: 
@@ -19,11 +19,18 @@ interface PropsTypes {
         id: number,
         color: string;
         type: string;
+        price: number;
     }[];
 }
 
 const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
     const gameSelected = useSelector((state: RootStateOrAny) => state.game.gameSelected);
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(gameActions.setGame([0,0]));
+    },[])
 
     return (
         <Container>
@@ -31,7 +38,7 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
             <TitleFilter>Filters</TitleFilter>
             {/* Buttons game */}
             {  typeGame.map(function ( item, index ) { 
-                    return (<ButtonGame key={item.id} color={item.color} id={item.id} index={index} resetFilter={true}>{item.type}</ButtonGame>);
+                    return (<ButtonGame key={item.id} color={item.color} price={item.price} id={item.id} index={index} resetFilter={true}>{item.type}</ButtonGame>);
                 } ) 
             }
 

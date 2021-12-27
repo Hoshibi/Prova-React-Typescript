@@ -74,3 +74,7 @@ export const BtnSave = styled.button `
     }
 `;
 
+export const NumberContainer = styled.div `
+    height: 40vh;
+    overflow: auto;
+`;

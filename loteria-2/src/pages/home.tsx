@@ -31,7 +31,7 @@ function Home() {
       method: 'get',
       url: 'http://127.0.0.1:3333/bet/all-bets?type%5B%5D=Lotof%C3%A1cil&type%5B%5D=Mega-Sena&type%5B%5D=Quina',
       headers: {
-        'Authorization': 'Bearer NDI.stLjQmayq5mf3D8Ozv-y8_h_0-UDBPm9GGpHUk0sQhe3gOvCdTtD7kbvFrkg'
+        'Authorization': `Bearer ${token}`
       }
     })
       .then(function (response:any) {
