@@ -1,17 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+interface gameDetail {
+  num: string;
+  game: number;
+  price: number;
+}
+
+interface purchaseDetail {
+  "id": number,
+	"numbers": Array<number>
+}
+
 interface initialGameStateProps {
-  gameSelected: number,
-  indexGameSelected: number,
+  gameSelected: number;
+  indexGameSelected: number;
+  priceGameSelected: number;
   selectedNumberList: Array<number>;
   randomNumberList: Array<number>;
+  selectedNumberString: Array<string>;
+  gamesToCart: Array<gameDetail>;
+  totalPrice: number;
+  savePurchaseList: Array<purchaseDetail>;
 }
 
 const initialGameState: initialGameStateProps = {
   gameSelected: 0,
   indexGameSelected: -1,
+  priceGameSelected: 0,
   selectedNumberList: [],
   randomNumberList: [],
+  selectedNumberString: [],
+  gamesToCart: [],
+  totalPrice: 0,
+  savePurchaseList: [],
 };
 
 const gameSlice = createSlice({
@@ -22,6 +43,7 @@ const gameSlice = createSlice({
       let dados = action.payload;
       state.gameSelected = dados[0];
       state.indexGameSelected = dados[1];
+      state.priceGameSelected = dados[2];
     },
     addNumberToList(state, action) {
       let list = [...state.selectedNumberList];
@@ -85,6 +107,88 @@ const gameSlice = createSlice({
       state.selectedNumberList = [];
       state.randomNumberList = [];
     },
+    addToCart(state) {
+      let aux = [...state.selectedNumberList];
+      state.selectedNumberString = [];
+
+      let list = [...state.gamesToCart];
+      state.gamesToCart = [];
+
+      aux.sort((a, b) => { return a - b; } );
+      for(var i=0 ; i < aux.length; i++){
+        aux[i] < 10 && state.selectedNumberString.push(`0${aux[i]}`);
+        aux[i] >= 10 && state.selectedNumberString.push(`${aux[i]}`);
+      }
+      
+      let num = [...state.selectedNumberString].join(', ').toString();
+      let game = state.indexGameSelected;
+      let price = state.priceGameSelected;
+
+      let data = {
+        num : num,
+        game : game,
+        price: price,
+      }
+
+      list.push(data);
+      state.gamesToCart = [...list];
+
+      state.totalPrice = 0;
+      list.map((item) => {
+        return state.totalPrice = state.totalPrice + item.price; 
+        ;
+      })
+    },
+    deleteToCart(state, action) {
+      let list = [...state.gamesToCart];
+
+      for(var i=0 ; i<list.length; i++){
+        if(list[i].num === action.payload){
+          var index = list[i].num.indexOf(action.payload);
+          if (index > -1) {
+            list.splice(i, 1);
+          }
+        }
+      }
+      state.gamesToCart = [...list];
+      
+      state.totalPrice = 0;
+      list.map((item) => {
+        return state.totalPrice = state.totalPrice + item.price; 
+        ;
+      })
+
+    },
+    savePurchase(state){
+      let aux = [...state.gamesToCart];
+
+      if(aux.length === 0 ){
+        alert("Carrinho Vazio.")
+      }else{
+        let list:Array<purchaseDetail> = [];
+
+        aux.map((item) => {
+          let arr = item.num.split(', ');
+          let arrList = [];
+
+          for (var i = 0; i < arr.length; i++)
+            arrList.push(parseInt(arr[i]));
+
+          list.push(
+            {
+              "id": item.game+1,
+              "numbers": arrList,
+            }
+          )
+          state.savePurchaseList = list;
+          return console.log('Adicionou');
+        })
+      }
+    },
+    cleanCart(state){
+      state.gamesToCart = [];
+      state.totalPrice = 0;
+    }
   },
 });
 

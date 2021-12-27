@@ -10,10 +10,9 @@ export const NavbarContainer = styled.div `
     height: 75px;
     padding-left: 9vw;
     padding-right: 13vw;
-    backgroud-color: red;
     font-style: italic;
 
-    a{
+    button{
         color: rgb(110, 110, 110);
         text-decoration: none;
         font-family: 'Work Sans', sans-serif;
@@ -21,15 +20,17 @@ export const NavbarContainer = styled.div `
         font-size:22px;
         transition: 0.3s;
         display: flex;
-        padding-left: 3.5vw;
+        margin-left: 3.5vw;
+        background-color: transparent !Important;
+        border-width: 0px;
     }
 
-    a svg {
+    button svg {
         font-size: 26px;
         margin-left: 0.6rem;
     }
 
-    a:hover {
+    button:hover {
         opacity: 0.7;
     }
 
@@ -39,20 +40,20 @@ export const NavbarContainer = styled.div `
     }
 `;
 
-export const Logo = styled.a `
+export const Logo = styled.button `
     color: rgb(110, 110, 110);
     font-size:55px !Important;
-    margin-left: 1vw;
     letter-spacing: -2px;
     align-items: center !Important;
-    height: 100%;
-    border-bottom: 6px solid #b5c401;
+    height: 106%;
+    border-bottom-width: 2px !Important;
+    border-bottom: 6px solid #b5c401 !Important;
     border-radius: 3px;
-    padding-left: 0vw !Important;
+    margin-left: 1vw !Important;
     
 `;
 
-export const BtnLogo = styled.a `
-    padding-left: 6vw !Important;
-    padding-top: 25px !Important;
+export const BtnLogo = styled.button `
+    margin-left: 6vw !Important;
+    margin-top: 25px !Important;
 `;

@@ -7,17 +7,18 @@ import { ButtonStyle, ButtonSelectedStyle } from './styles';
 interface PropsType {
     color: string;
     id: number;
+    price: number;
     index: number;
     resetFilter: boolean;
   }
 
-const ButtonGames: React.FC<PropsType> = ({ children, color, id, index, resetFilter}) => {
+const ButtonGames: React.FC<PropsType> = ({ children, color, price, id, index, resetFilter}) => {
     const dispatch = useDispatch();
     const gameSelected = useSelector((state: RootStateOrAny) => state.game.gameSelected);
 
     function buttonHandler() {
         gameSelected === id && !!resetFilter && dispatch(gameActions.setGame([0,0]));
-        gameSelected !== id && dispatch(gameActions.setGame([id,index]));
+        gameSelected !== id && dispatch(gameActions.setGame([id,index,price]));
 
         dispatch(gameActions.clearGame())
     }
