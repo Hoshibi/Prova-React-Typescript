@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import FormContainer from '../components/FormContainer';
-import TextAuth from '../components/TextAuth';
-import Input from '../components/Input';
 import { toast } from 'react-toastify';
+
+import { FormContainer, TextAuth, Input } from '../components/';
 
 function ResetPassword() {
   const navigate = useNavigate();

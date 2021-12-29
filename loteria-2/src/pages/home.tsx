@@ -3,9 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
-import Navbar from '../components/Navbar';
-import RecentGames from '../components/RecentGames';
-import BtnNewBet from '../components/BtnNewBet';
+import { Navbar, RecentGames, BtnNewBet } from '../components/';
 
 function Home() {
   const navigate = useNavigate();

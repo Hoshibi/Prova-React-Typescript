@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
+import { gameActions } from '../../store/gameControl';
+import { toast } from 'react-toastify';
 
 import { Container, TitleBold, TitleNormal, BtnCompleteGame, BtnClearGame, BtnAdd } from './styles'
-
-import ListNumbers from '../ListNumbers';
-import ButtonGame from '../ButtonGame';
-import { gameActions } from '../../store/gameControl';
-import ModalComponent from '../Modal';
-import { toast } from 'react-toastify';
+import { ListNumbers, ButtonGame, ModalComponent } from '../index'
 
 interface PropsType {
     infos: {

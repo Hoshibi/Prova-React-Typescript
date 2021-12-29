@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { HiArrowRight, HiArrowLeft } from 'react-icons/hi';
 import { Container, FormDiv, BtnGreen, BtnGray } from './styles'
-// import { Spinner } from 'react-bootstrap';
 
 interface PropsType {
   title: string;

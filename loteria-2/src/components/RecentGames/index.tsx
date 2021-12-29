@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
+import { gameActions } from "../../store/gameControl";
 
 import { Container, Title, TitleFilter, TextNoPurchased } from './styles';
-import ButtonGame from "../ButtonGame";
-import PurchasedCard from "../PurchasedCard";
-import { gameActions } from "../../store/gameControl";
+import { ButtonGame, PurchasedCard } from "../index";
 
 interface PropsTypes {
     recentGameInfo: 
@@ -60,7 +59,6 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
                     <p>Não há nenhuma compra de jogo realizado !</p>
                     <p>Para realizar uma compra aperte em NEW BET.</p>
                 </TextNoPurchased>
-                    
             }
             
         </Container>

@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/auth';
+import { toast } from 'react-toastify';
 
 //Components
-import FormContainer from '../components/FormContainer';
-import TextAuth from '../components/TextAuth';
-import Input from '../components/Input';
-import ResetPasswordLink from '../components/ResetPasswordLink'
-import { toast } from 'react-toastify';
+import { FormContainer, TextAuth, Input, ResetPasswordLink } from '../components/';
+
 
 function Login() {
   const navigate = useNavigate();

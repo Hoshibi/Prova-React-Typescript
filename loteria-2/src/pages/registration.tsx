@@ -1,10 +1,8 @@
 import { useState } from 'react';
-
-import FormContainer from '../components/FormContainer';
-import TextAuth from '../components/TextAuth';
-import Input from '../components/Input';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import { FormContainer, TextAuth, Input } from '../components/';
 
 function Registration() {
 

@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
-
-import { HiArrowRight } from 'react-icons/hi';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { HiArrowRight } from 'react-icons/hi';
 import { gameActions } from '../../store/gameControl';
-import CardCart from '../CardCart';
+
+import { CardCart } from '../../components/';
 import { Container, CartContainer, TitleCart, InfoCart, BtnSave, TotalPriceDiv, TotalTextBold, NumberContainer } from './styles'
 
 const Cart: React.FC = () => {
