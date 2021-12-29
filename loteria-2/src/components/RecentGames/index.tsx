@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
 
-import { Container, Title, TitleFilter } from './styles';
+import { Container, Title, TitleFilter, TextNoPurchased } from './styles';
 import ButtonGame from "../ButtonGame";
 import PurchasedCard from "../PurchasedCard";
 import { gameActions } from "../../store/gameControl";
@@ -54,6 +54,13 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
                 recentGameInfo.map( (item) => { 
                     return (<PurchasedCard key={item.id} numbers={item.choosen_numbers} date={item.created_at} value={item.price} gametype={item.type.type} idgame={item.type.id}/>) ;
                 }) 
+            }
+            { recentGameInfo.length <= 0 && 
+                <TextNoPurchased>
+                    <p>Não há nenhuma compra de jogo realizado !</p>
+                    <p>Para realizar uma compra aperte em NEW BET.</p>
+                </TextNoPurchased>
+                    
             }
             
         </Container>

@@ -8,11 +8,11 @@ export const Container = styled.div `
     font-size: 25px;
     font-family: 'Work Sans', sans-serif;
     float: right;
-    width: 41vw;
     color: #707070;
     width: 26vw;
     margin-right: 13vw;
     padding-top: 23vh;
+    padding-bottom: 17vh;
     display: flex;
     flex-direction: column;
     align-items: center;

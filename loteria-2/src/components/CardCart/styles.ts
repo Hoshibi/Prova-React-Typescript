@@ -36,13 +36,14 @@ export const NumbersDiv = styled.div<StyledProps> `
 `;
 
 export const Numbers = styled.p `
-    padding-bottom: 1vh !Important;
+    padding-top: 1vh !Important;
+    margin-bottom: 0px !Important;
     font-style: italic !Important;
     font-weight: 600 !Important;
     font-size: 15px !Important;
 `;
 
-export const TipoGame = styled.span <StyledProps>`
+export const TipoGame = styled.span<StyledProps> `
     font-size: 17px !Important;
     font-weight: 600 !Important;
     font-style: italic !Important;

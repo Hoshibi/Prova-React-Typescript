@@ -41,7 +41,7 @@ function Home() {
 
   useEffect(() => {
     getGameHandler();
-    getRecentGamesHandler()
+    getRecentGamesHandler();
   }, [getGameHandler,getRecentGamesHandler]);
 
   return (
@@ -49,7 +49,6 @@ function Home() {
       <Navbar inHome={true}/>
       <RecentGames typeGame={infoGame} recentGameInfo={recentGames}/>
       <BtnNewBet onClick={() => { navigate('/new-bet') }}/>
-      {console.log("token:", token)}
     </>
   );
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 
 //Pages
@@ -11,6 +13,7 @@ import NotFound from './pages/notFound/';
 
 //Global Style
 import { GlobalStyle } from './globalStyle';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -24,6 +27,7 @@ function App() {
         <Route path='*' element={<NotFound />}/>
       </Routes>
       <GlobalStyle />
+      <ToastContainer />
     </>
   );
 }

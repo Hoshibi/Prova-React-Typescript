@@ -18,6 +18,7 @@ export const Container = styled.div `
 
 export const FirstText = styled.h1 `
     font-size: 65px;
+    font-weight: 600;
 `;
 
 export const CenterText = styled.div `

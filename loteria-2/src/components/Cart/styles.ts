@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div `
     float: right;
-    width: 33vw;
+    width: 23vw;
+    margin-right: 12vw;
 `;
 
 export const CartContainer = styled.div `
@@ -15,7 +16,8 @@ export const CartContainer = styled.div `
     background-color: white;
     font-family: 'Work Sans', sans-serif;
     color: #707070;
-
+    float: right;
+    
     span{
         font-size: 25px;
         font-style: normal;

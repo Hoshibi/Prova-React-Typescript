@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 interface gameDetail {
   num: string;
@@ -21,6 +22,8 @@ interface initialGameStateProps {
   gamesToCart: Array<gameDetail>;
   totalPrice: number;
   savePurchaseList: Array<purchaseDetail>;
+  modalOpen: boolean;
+  permissionToAddCart: boolean;
 }
 
 const initialGameState: initialGameStateProps = {
@@ -33,6 +36,8 @@ const initialGameState: initialGameStateProps = {
   gamesToCart: [],
   totalPrice: 0,
   savePurchaseList: [],
+  modalOpen: false,
+  permissionToAddCart: false,
 };
 
 const gameSlice = createSlice({
@@ -124,13 +129,32 @@ const gameSlice = createSlice({
       let game = state.indexGameSelected;
       let price = state.priceGameSelected;
 
-      let data = {
-        num : num,
-        game : game,
-        price: price,
+      if(list.length === 0){
+        let data = {
+          num : num,
+          game : game,
+          price: price,
+        }
+  
+        list.push(data);
+      }else{
+        var have = 0;
+        for(var i = 0; i < list.length; i++){
+          if(num === list[i].num){ have++; }
+        }
+
+        if(have>0){ 
+          state.modalOpen = true; 
+        }else{
+          let data = {
+            num : num,
+            game : game,
+            price: price,
+          }
+          list.push(data);
+        }
       }
 
-      list.push(data);
       state.gamesToCart = [...list];
 
       state.totalPrice = 0;
@@ -163,7 +187,7 @@ const gameSlice = createSlice({
       let aux = [...state.gamesToCart];
 
       if(aux.length === 0 ){
-        alert("Carrinho Vazio.")
+        toast.warn("Carrinho Vazio !", {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
       }else{
         let list:Array<purchaseDetail> = [];
 
@@ -181,13 +205,50 @@ const gameSlice = createSlice({
             }
           )
           state.savePurchaseList = list;
-          return console.log('Adicionou');
+          return list
         })
       }
     },
     cleanCart(state){
       state.gamesToCart = [];
       state.totalPrice = 0;
+    },
+    modalState(state,action){
+      state.modalOpen = action.payload;
+    },
+    addPermission(state,action){
+      state.permissionToAddCart = action.payload;
+    },
+    addToCartAfterPermission(state){
+      let aux = [...state.selectedNumberList];
+
+      let list = [...state.gamesToCart];
+      state.gamesToCart = [];
+
+      aux.sort((a, b) => { return a - b; } );
+      for(var i=0 ; i < aux.length; i++){
+        aux[i] < 10 && state.selectedNumberString.push(`0${aux[i]}`);
+        aux[i] >= 10 && state.selectedNumberString.push(`${aux[i]}`);
+      }
+      
+      let num = [...state.selectedNumberString].join(', ').toString();
+      let game = state.indexGameSelected;
+      let price = state.priceGameSelected;
+
+      let data = {
+        num : num,
+        game : game,
+        price: price,
+      }
+
+      list.push(data);
+      state.gamesToCart = [...list];
+
+      state.totalPrice = 0;
+      list.map((item) => {
+        return state.totalPrice = state.totalPrice + item.price; 
+        ;
+      })
     }
   },
 });

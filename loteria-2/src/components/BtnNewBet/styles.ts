@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const BtnStyle = styled.button `
-    padding-top: 12vh;
+    padding-top: 13vh;
+    padding-left: 18vh;
     background-color: transparent;
     border-width: 0px;
     color: #B5C401;
@@ -15,7 +16,7 @@ export const BtnStyle = styled.button `
     }
 
     & svg {
-        font-size: 27px;
+        font-size: 28px;
         margin-left: 1.1rem;
     }
 `;

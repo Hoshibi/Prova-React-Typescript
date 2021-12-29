@@ -3,9 +3,12 @@ import { useState } from 'react';
 import FormContainer from '../components/FormContainer';
 import TextAuth from '../components/TextAuth';
 import Input from '../components/Input';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Registration() {
 
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -45,10 +48,11 @@ function Registration() {
         setIsLoading(false);
 
         if (res.ok) {
-          alert("Cadastro realiza com sucesso!");
+          toast.success('Cadastro realiza com sucesso!', {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
           setName('');
           setEmail('');
           setPassword('');
+          navigate('/'); 
           return res.json();
         } else {
           return res.json().then(() => {
@@ -56,13 +60,13 @@ function Registration() {
 
             function isValidEmail(email:string){
               var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
-              console.log(regex.test(email));
               return regex.test(email);
             }
 
             if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
             if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
             if(name.trim().length === 0) { errorMessage='Campo name vazio! Insira uma nome' }
+            if(email.trim().length === 0 && password.trim().length === 0 && name.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
             if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
               errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' 
             }
@@ -74,7 +78,7 @@ function Registration() {
         }
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error(err.message, {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
       });
   };
 

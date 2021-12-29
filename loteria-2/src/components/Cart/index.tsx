@@ -4,12 +4,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { HiArrowRight } from 'react-icons/hi';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { gameActions } from '../../store/gameControl';
 import CardCart from '../CardCart';
 import { Container, CartContainer, TitleCart, InfoCart, BtnSave, TotalPriceDiv, TotalTextBold, NumberContainer } from './styles'
 
 const Cart: React.FC = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
     const token = useSelector((state: RootStateOrAny) => state.auth.token);
     const totalPrice = useSelector((state: RootStateOrAny) => state.game.totalPrice);
     const gamesToCart = useSelector((state: RootStateOrAny) => state.game.gamesToCart);
@@ -46,16 +50,16 @@ const Cart: React.FC = () => {
             }
         })
         .then(function (response:any) {
-            console.log("resposta: ",response);
             if (response.ok) {
                 return response.json();
             } 
             dispatch(gameActions.cleanCart());
-            alert("Compra realizada com sucesso!");
+            toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
+            navigate('/home');
         })
         .catch((err) => {
-            if(totalPrice < 5) { alert("Valor mínimo autorizado é R$ 5,00") }
-            else{ alert(err.message);}
+            if(totalPrice < 5) { toast.warn('Valor mínimo autorizado: R$5,00.', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});}
+            else{ toast.error(err.message, {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true}); }
         });
     }
 
@@ -75,7 +79,6 @@ const Cart: React.FC = () => {
                         <span>TOTAL: {totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                     </TotalPriceDiv>
                 </InfoCart>
-                {console.log(savePurchaseList)}
                 <BtnSave onClick={btnSaveHandler}>
                     Save
                     <HiArrowRight />

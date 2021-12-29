@@ -4,6 +4,7 @@ import { gameActions } from '../../store/gameControl';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
 import { BtnStyle } from './styles';
+import { toast } from "react-toastify";
 
 interface PropsType {
     value: number;
@@ -32,7 +33,7 @@ const BtnNumbers: React.FC<PropsType> = ({children, value, color, max, range}) =
         if(numbers.length <= max){
             if(!isSelected){ 
                 if(numbers.length === max){
-                    alert(`Selecionou o máximo de números: ${max} números`)
+                    toast.error(`Máximo de: ${max} números`, {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
                 }
                 else{
                     dispatch(gameActions.addNumberToList(value));

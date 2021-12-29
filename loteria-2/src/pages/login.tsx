@@ -8,6 +8,7 @@ import FormContainer from '../components/FormContainer';
 import TextAuth from '../components/TextAuth';
 import Input from '../components/Input';
 import ResetPasswordLink from '../components/ResetPasswordLink'
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -59,6 +60,7 @@ function Login() {
 
             if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
             if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
+            if(email.trim().length === 0 && password.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
             if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0) { errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' }
             if(!!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0) { errorMessage='Email e/ou senha incorreta! Verifique novamente' }
             throw new Error(errorMessage);
@@ -70,7 +72,7 @@ function Login() {
         navigate('/home');
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error(err.message, {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
       });
   };
 

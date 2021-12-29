@@ -17,9 +17,11 @@ export const CardContainer = styled.div<PropsType> `
 
 export const Numbers = styled.p `
     font-weight: 600;
+    margin-bottom: 0;
 `;
 
 export const DateValue = styled.p `
+    margin-bottom: 0;
     font-style: normal;
     font-weight: 400;
     padding-top: 10px;
@@ -28,6 +30,7 @@ export const DateValue = styled.p `
 `;
 
 export const GameType = styled.p<PropsType> `
+    margin-bottom: 0;
     font-weight: 600;
     color: ${(props) => props.color};
 `;

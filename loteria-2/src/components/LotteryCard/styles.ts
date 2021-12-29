@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div `
     float: left;
-    width: 51vw;
+    width: 61vw;
     padding-left: 10vw;
     padding-top: 12vh;
     padding-bottom: 5vh;
@@ -113,6 +113,7 @@ export const BtnAdd = styled.button `
     font-weight: 500;
     width: 210px;
     transition: 0.3s;
+    float: right;
 
     & svg {
         font-size: 26px;

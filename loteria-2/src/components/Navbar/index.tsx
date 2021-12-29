@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NavbarContainer, Logo, BtnLogo } from './styles'
+import { NavbarContainer, Logo, BtnHome } from './styles'
 import { HiArrowRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from '../../store/auth';
@@ -23,7 +23,7 @@ const Navbar: React.FC<PropsTypes> = ({ inHome }) => {
         <NavbarContainer>
             <ul>
                 <li><Logo onClick={() => { navigate('/home') }}>TGL</Logo></li>
-                {!inHome && <li><BtnLogo onClick={() => { navigate('/home') }}>Home</BtnLogo></li>}
+                {!inHome && <li><BtnHome onClick={() => { navigate('/home') }}>Home</BtnHome></li>}
             </ul>
             <ul>
                 <li><button onClick={() => { navigate('/home') }}>Account</button></li>

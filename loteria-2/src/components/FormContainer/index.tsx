@@ -32,7 +32,6 @@ const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, bt
           <form onSubmit={onSubmit}>
             {children}
             <BtnGreen>{btnGreenTitle}<HiArrowRight /></BtnGreen>
-            {/* {!!isLoading && <Spinner animation="border" variant="success" />} */}
           </form>
         </FormDiv>
           <BtnGray back={typeBtnGray} onClick={buttonNavigateHandler}>

@@ -1,13 +1,11 @@
 import { useEffect, useState, useCallback} from 'react';
 import axios from "axios";
 
-import Navbar from '../components/Navbar';
-import LotteryCard from '../components/LotteryCard';
-import Cart from '../components/Cart';
+import { Navbar, LotteryCard, Cart } from '../components/';
 
 function NewBet() {
 
-  const [info, setInfo] = useState([])
+  const [info, setInfo] = useState([]);
 
   //Get info Game
   const getGameHandler = useCallback(async () => {
