@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from './styles'
 
-import { BtnNumbers } from '../../components/';
+import { BtnNumbers } from '@components/index';
 
 interface PropsType {
     range: number;

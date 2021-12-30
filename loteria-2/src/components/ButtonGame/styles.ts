@@ -23,6 +23,13 @@ export const ButtonStyle = styled.button<StyledProps> `
     &:hover{
         opacity: 0.6;
     }
+
+    @media (max-width: 868px) {
+        & {
+            margin-right: 1vw !Important;
+            margin-top: 2vh !Important;
+        }
+    }
 `;
 
 export const ButtonSelectedStyle = styled.button<StyledProps> `
@@ -44,4 +51,11 @@ export const ButtonSelectedStyle = styled.button<StyledProps> `
     &:hover{
         opacity: 0.6;
     }
+
+    @media (max-width: 862px) {
+        & {
+            margin-right: 1vw !Important;
+        }
+    }
+    
 `;

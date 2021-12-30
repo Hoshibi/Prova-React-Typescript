@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from "axios";
 import { format } from "date-fns";
 
+import { convertMoneyInReal } from '@shared/helpers/convertMonetaryValue';
 import { CardContainer, Numbers, DateValue, GameType } from "./styles";
+import gameServices from '@shared/services/game';
 
 interface PropsType {
     numbers: string;
@@ -19,13 +20,7 @@ const PurchasedCard: React.FC<PropsType> = ({ numbers, date, value, gametype, id
     const [getDate, setGetDate] = useState("");
 
     const getGameHandler = useCallback(async () => {
-        axios({
-        method: 'get',
-        url: 'http://127.0.0.1:3333/cart_games',
-        })
-        .then(function (response:any) {
-            setInfoGame(response.data.types)
-        })
+        gameServices().listGames.then(function (response:any) {setInfoGame(response.data.types)})
     }, []);
 
     useEffect(() => {
@@ -39,24 +34,16 @@ const PurchasedCard: React.FC<PropsType> = ({ numbers, date, value, gametype, id
         } )
     },[idgame,infoGame])
 
-    function inRealMoney(value: number) {
-        return value.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL'
-        });
-    }
-
     useEffect(() => {
         var dateFormat = new Date(date);
         var formattedDate = format(dateFormat, "dd/MM/yyyy");
         setGetDate(formattedDate);
     },[date])
     
-    
     return (
         <CardContainer color={getColor}>
-            <Numbers>{numbers}</Numbers>
-            <DateValue>{getDate} - ({inRealMoney(value)})</DateValue>
+            <Numbers>{numbers.replace(/,/g,', ')}</Numbers>
+            <DateValue>{getDate} - ({convertMoneyInReal(value)})</DateValue>
             <GameType color={getColor}>{gametype}</GameType>
         </CardContainer>
     );

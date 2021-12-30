@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { HiArrowRight } from 'react-icons/hi';
-import { gameActions } from '../../store/gameControl';
+import { gameActions } from '@store/gameControl';
 
-import { CardCart } from '../../components/';
+import { CardCart } from '@components/index';
+import { convertMoneyInReal } from '@shared/helpers/convertMonetaryValue';
+import gameServices from '@shared/services/game/';
 import { Container, CartContainer, TitleCart, InfoCart, BtnSave, TotalPriceDiv, TotalTextBold, NumberContainer } from './styles'
+import betServices from '@shared/services/bet';
 
 const Cart: React.FC = () => {
     const dispatch = useDispatch();
@@ -21,46 +24,50 @@ const Cart: React.FC = () => {
     
     const [info, setInfo] = useState([]);
 
-    //Get info Game
-    const getGameHandler = useCallback(async () => {
-        axios({
-        method: 'get',
-        url: 'http://127.0.0.1:3333/cart_games',
-        })
-        .then(function (response:any) {
-            setInfo(response.data.types)
-        })
-    }, []);
+    //Get listGames
+    gameServices().listGames.then(function (response:any) {setInfo(response.data.types)})
 
-    useEffect(() => {
-        getGameHandler();
-    }, [getGameHandler]);
-
-    function btnSaveHandler(event: any){        
+    const btnSaveHandler = async (event: any) => {        
         event.preventDefault();
-        
-        axios({
-            method: 'post',
-            data: {
-                "games": savePurchaseList
-            },
-            url: 'http://127.0.0.1:3333/bet/new-bet',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(function (response:any) {
-            if (response.ok) {
-                return response.json();
-            } 
+
+        var body = {data: {games: savePurchaseList}}
+
+        try {
+            window.localStorage.setItem('token',token)
+            console.log(window.localStorage.getItem('token'));
+
+            const res = await betServices().newBet(body);
+            console.log("response: ",res);
             dispatch(gameActions.cleanCart());
             toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
             navigate('/home');
-        })
-        .catch((err) => {
-            if(totalPrice < 5) { toast.warn('Valor mínimo autorizado: R$5,00.', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});}
-            else{ toast.error(err.message, {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true}); }
-        });
+            return res
+        }catch(error: any) {
+            console.log("error teste: ",error)
+        }
+        
+        // axios({
+        //     method: 'post',
+        //     data: {
+        //         "games": savePurchaseList
+        //     },
+        //     url: 'http://127.0.0.1:3333/bet/new-bet',
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     }
+        // })
+        // .then(function (response:any) {
+        //     if (response.ok) {
+        //         return response.json();
+        //     } 
+        //     dispatch(gameActions.cleanCart());
+        //     toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
+        //     navigate('/home');
+        // })
+        // .catch((err) => {
+        //     if(totalPrice < 5) { toast.warn('Valor mínimo autorizado: R$5,00.', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});}
+        //     else{ toast.error(err.message, {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true}); }
+        // });
     }
 
     return (
@@ -76,7 +83,7 @@ const Cart: React.FC = () => {
                     </NumberContainer>
                     <TotalPriceDiv>
                         <TotalTextBold>CART </TotalTextBold> 
-                        <span>TOTAL: {totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                        <span>TOTAL: {convertMoneyInReal(totalPrice)}</span>
                     </TotalPriceDiv>
                 </InfoCart>
                 <BtnSave onClick={btnSaveHandler}>

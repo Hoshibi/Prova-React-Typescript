@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { gameActions } from '../../store/gameControl';
+import { gameActions } from '@store/gameControl';
 
 interface TypeProps {
     title: string,

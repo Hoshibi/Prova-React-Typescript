@@ -24,11 +24,32 @@ export const Container = styled.div `
         text-align: center;
         padding-bottom: 30px;
     }
+
+    @media (min-width: 511px) and (max-width: 900px) {
+        & {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width:100% !Important;
+            margin-inline: 0px;
+        }
+    }
+
+    @media (max-width: 510px) {
+    & {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width:100% !Important;
+        margin-inline: 0px;
+    }
 `;
 
 export const FormDiv = styled.div `
     background-color: white;
-    width: 26vw;
+    width: 380px;
     border-radius: 10px;
     border-width: 2px;
     border-style: solid;
@@ -38,6 +59,11 @@ export const FormDiv = styled.div `
     form {
         display: flex;
         flex-direction: column;
+    }
+
+    @media (max-width: 510px) {
+    & {
+        width: 360px;
     }
 `;
 

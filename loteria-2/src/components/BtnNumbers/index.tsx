@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
-import { gameActions } from '../../store/gameControl';
+import { gameActions } from '@store/gameControl';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
 import { BtnStyle } from './styles';

@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { RootStateOrAny, useSelector } from 'react-redux';
 
-import { Navbar, RecentGames, BtnNewBet } from '../components/';
+import { Navbar, RecentGames, BtnNewBet } from '@components/index';
+import gameServices from '@shared/services/game';
 
 function Home() {
   const navigate = useNavigate();
@@ -14,13 +15,7 @@ function Home() {
 
   //Get info Game
   const getGameHandler = useCallback(async () => {
-    axios({
-      method: 'get',
-      url: 'http://127.0.0.1:3333/cart_games',
-    })
-      .then(function (response:any) {
-        setInfoGame(response.data.types)
-      })
+    gameServices().listGames.then(function (response:any) {setInfoGame(response.data.types)})
   }, []);
 
   //Get recent games
@@ -45,8 +40,8 @@ function Home() {
   return (
     <>
       <Navbar inHome={true}/>
-      <RecentGames typeGame={infoGame} recentGameInfo={recentGames}/>
       <BtnNewBet onClick={() => { navigate('/new-bet') }}/>
+      <RecentGames typeGame={infoGame} recentGameInfo={recentGames}/>
     </>
   );
 }

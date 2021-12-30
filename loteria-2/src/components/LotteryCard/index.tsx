@@ -4,7 +4,7 @@ import { gameActions } from '../../store/gameControl';
 import { toast } from 'react-toastify';
 
 import { Container, TitleBold, TitleNormal, BtnCompleteGame, BtnClearGame, BtnAdd } from './styles'
-import { ListNumbers, ButtonGame, ModalComponent } from '../index'
+import { ListNumbers, ButtonGame, ModalComponent } from '@components/index'
 
 interface PropsType {
     infos: {

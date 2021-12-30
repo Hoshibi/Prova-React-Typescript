@@ -4,12 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 
 //Pages
-import Login from './pages/login';
-import Home from './pages/home';
-import Registration from './pages/registration';
-import ResetPassword from './pages/resetPassword';
-import NewBet from './pages/newBet';
-import NotFound from './pages/notFound/';
+import Login from '@pages/login/index';
+import Home from '@pages/home';
+import Registration from '@pages/registration';
+import ResetPassword from '@pages/resetPassword';
+import NewBet from '@pages/newBet';
+import ChangePassword from '@pages/changePassword';
+import NotFound from '@pages/notFound/';
 
 //Global Style
 import { GlobalStyle } from './globalStyle';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-bet" element={<NewBet />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path='*' element={<NotFound />}/>
       </Routes>
       <GlobalStyle />

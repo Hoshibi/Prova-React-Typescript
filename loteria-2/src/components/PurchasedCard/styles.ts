@@ -5,7 +5,7 @@ interface PropsType {
 }
 
 export const CardContainer = styled.div<PropsType> `
-    width: 38vw;
+    width: 55vw;
     padding-inline: 15px;
     padding-block: 3px;
     margin-top: 5vh;
@@ -13,6 +13,13 @@ export const CardContainer = styled.div<PropsType> `
     border-radius: 3px;
     font-size: 19px;
     color: #868686;
+
+    @media (max-width: 862px){
+        &{
+            width: 82vw;
+            padding-top: 10px;
+        }
+    }
 `;
 
 export const Numbers = styled.p `

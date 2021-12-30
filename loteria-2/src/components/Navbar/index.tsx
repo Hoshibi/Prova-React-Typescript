@@ -3,7 +3,7 @@ import React from 'react';
 import { NavbarContainer, Logo, BtnHome } from './styles'
 import { HiArrowRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { authActions } from '../../store/auth';
+import { authActions } from '@store/auth';
 import { useDispatch } from 'react-redux';
 
 interface PropsTypes {

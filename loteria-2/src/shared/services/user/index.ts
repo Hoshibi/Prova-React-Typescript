@@ -7,13 +7,15 @@ const userServices = () => {
     }
 
     async function createUser(body:ICreateUser) {
-        return axiosConfig.get('/user/create',body)
+        return axiosConfig.post('/user/create',body)
     }
+
+    return {
+        createUser: createUser,
+        myProfile: myProfile
+     }
 }
 
-
 export default userServices
-
-
 
 // Criar 3 métodos que utilizam o axios config para fazer as requisições de users

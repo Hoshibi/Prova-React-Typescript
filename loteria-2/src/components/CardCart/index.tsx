@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch} from "react-redux";
-import { gameActions } from "../../store/gameControl";
+import { gameActions } from "@store/gameControl";
 
 import { NumbersDiv, Numbers, TipoGame, ValorUnid, BtnLixoDiv, CardGame } from './styles';
+import { convertMoneyInReal } from '@shared/helpers/convertMonetaryValue';
 
 interface PropsType {
     game: {
@@ -29,7 +30,7 @@ const CardCart: React.FC<PropsType> = ( {game, index, numbers} ) => {
                 <NumbersDiv color={game[index].color}>
                     <Numbers>{numbers}</Numbers>
                     <TipoGame color={game[index].color}>{game[index].type}</TipoGame>
-                    <ValorUnid>{`${game[index].price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}</ValorUnid>
+                    <ValorUnid>{`${convertMoneyInReal(game[index].price)}`}</ValorUnid>
                 </NumbersDiv>
             </CardGame>
         </>

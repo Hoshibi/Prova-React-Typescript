@@ -1,21 +1,15 @@
 import { useEffect, useState, useCallback} from 'react';
-import axios from "axios";
 
-import { Navbar, LotteryCard, Cart } from '../components/';
+import { Navbar, LotteryCard, Cart } from '@components/index';
+import gameServices from '@shared/services/game';
 
 function NewBet() {
 
   const [info, setInfo] = useState([]);
 
   //Get info Game
-  const getGameHandler = useCallback(async () => {
-    axios({
-      method: 'get',
-      url: 'http://127.0.0.1:3333/cart_games',
-    })
-      .then(function (response:any) {
-        setInfo(response.data.types)
-      })
+  const getGameHandler = useCallback(async () => { 
+    gameServices().listGames.then(function (response:any) {setInfo(response.data.types)})
   }, []);
 
   useEffect(() => {

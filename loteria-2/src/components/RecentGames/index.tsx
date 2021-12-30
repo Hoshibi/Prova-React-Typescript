@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from 'react-redux';
-import { gameActions } from "../../store/gameControl";
+import { gameActions } from "@store/gameControl";
 
 import { Container, Title, TitleFilter, TextNoPurchased } from './styles';
 import { ButtonGame, PurchasedCard } from "../index";
@@ -33,8 +33,8 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
 
     return (
         <Container>
-            <Title>RECENT GAMES</Title>
-            <TitleFilter>Filters</TitleFilter>
+                <Title>RECENT GAMES</Title>
+                <TitleFilter>Filters</TitleFilter>
             {/* Buttons game */}
             {  typeGame.map(function ( item, index ) { 
                     return (<ButtonGame key={item.id} color={item.color} price={item.price} id={item.id} index={index} resetFilter={true}>{item.type}</ButtonGame>);

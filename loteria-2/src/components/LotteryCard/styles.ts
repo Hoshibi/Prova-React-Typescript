@@ -25,7 +25,7 @@ export const Container = styled.div `
     }
 
     p{
-        padding-top: 1vh;
+        padding-right: 3vw;
     }
     
     button{
@@ -39,6 +39,20 @@ export const Container = styled.div `
         font-style: italic;
         margin-top: 6vh;
         font-weight: 600;
+    }
+
+    @media (min-width: 1020px) and (max-width: 1175px){
+        width: 57vw;
+    }
+    @media (min-width: 422px) and (max-width: 1019px){
+        width: 100%;
+        padding-right: 8vw;
+    }
+
+    @media (max-width: 421px){
+        width: 100%;
+        margin-right: 0px !Important;
+        padding-right: 0vw;
     }
 `;
 
@@ -100,7 +114,7 @@ export const BtnClearGame = styled.button `
     color: #27C383;
     width: 140px;
     transition: 0.3s;
-    margin-right: 10vw;
+    margin-right: 1vw;
 
     &:hover {
         opacity: 0.7;
@@ -114,6 +128,7 @@ export const BtnAdd = styled.button `
     width: 210px;
     transition: 0.3s;
     float: right;
+    margin-right: 2vw;
 
     & svg {
         font-size: 26px;
@@ -122,5 +137,17 @@ export const BtnAdd = styled.button `
 
     &:hover {
         opacity: 0.7;
+    }
+
+    @media (min-width: 1020px) and (max-width: 1175px){
+        float: left;
+    } 
+
+    @media (min-width: 670px) and (max-width: 1019px){
+        float: right;
+    }
+
+    @media (max-width: 669px){
+        float: left;
     }
 `;
