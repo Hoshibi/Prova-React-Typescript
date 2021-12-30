@@ -3,11 +3,16 @@ import { INewBet } from './interfaces';
 
 const betServices = () => {
     async function newBet(body: INewBet) {
-        let config = { headers: { 'Authorization': `Bearer MTE3.oz19kJL_H-FT9-pzNuYOtgjAJBuJtH0PWdIAWBvNVFLB3lQALPsvoGrc4rTW`}}
-        return axiosConfig.post('/bet/new-bet', body, config);
+        return axiosConfig.post('/bet/new-bet', body,{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}});
     }
+
+    async function listBet(arr: Array<string>) {
+        return axiosConfig.get('bet/all-bets',{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}, params: { "type[]" : arr}});
+    }
+
     return {
-        newBet: newBet
+        newBet: newBet,
+        listBet: listBet
     }
 }
 

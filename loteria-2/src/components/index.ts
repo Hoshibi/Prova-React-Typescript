@@ -13,7 +13,9 @@ import PurchasedCard from '@components/PurchasedCard';
 import RecentGames from '@components/RecentGames';
 import ResetPasswordLink from '@components/ResetPasswordLink';
 import TextAuth from '@components/TextAuth';
-
+import CardMyAccount from '@components/CardMyAccount'
+import CardUpdateUser from '@components/CardUpdateUser'
+import BtnFilter from './BtnFilter';
 
 export { Navbar, 
     LotteryCard, 
@@ -29,5 +31,8 @@ export { Navbar,
     PurchasedCard,
     RecentGames,
     ResetPasswordLink,
-    TextAuth
+    TextAuth,
+    CardMyAccount,
+    CardUpdateUser,
+    BtnFilter
 }

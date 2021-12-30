@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
 import { Navbar, RecentGames, BtnNewBet } from '@components/index';
 import gameServices from '@shared/services/game';
+import betServices from '@shared/services/bet';
+import { gameActions } from '@store/gameControl';
 
 function Home() {
   const navigate = useNavigate();
-  const token = useSelector((state: RootStateOrAny) => state.auth.token);
+  const dispatch = useDispatch();
+  const gameToFilter = useSelector((state: RootStateOrAny) => state.game.gameToFilter);
 
   const [infoGame, setInfoGame] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
@@ -18,29 +21,25 @@ function Home() {
     gameServices().listGames.then(function (response:any) {setInfoGame(response.data.types)})
   }, []);
 
-  //Get recent games
   const getRecentGamesHandler = useCallback(async () => {
-    axios({
-      method: 'get',
-      url: 'http://127.0.0.1:3333/bet/all-bets?type%5B%5D=Lotof%C3%A1cil&type%5B%5D=Mega-Sena&type%5B%5D=Quina',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(function (response:any) {
-        setRecentGames(response.data)
-      });
-  }, []);
+    console.log(gameToFilter)
+    betServices().listBet(gameToFilter).then(function (response:any) {setRecentGames(response.data)})
+  }, [gameToFilter]);
 
   useEffect(() => {
     getGameHandler();
     getRecentGamesHandler();
   }, [getGameHandler,getRecentGamesHandler]);
 
+  function btnNewBet() {
+    dispatch(gameActions.clearGameToFilter());
+    navigate('/new-bet')
+  }
+
   return (
     <>
-      <Navbar inHome={true}/>
-      <BtnNewBet onClick={() => { navigate('/new-bet') }}/>
+      <Navbar inHome={true} inAccount={false}/>
+      <BtnNewBet onClick={btnNewBet}/>
       <RecentGames typeGame={infoGame} recentGameInfo={recentGames}/>
     </>
   );

@@ -1,9 +1,14 @@
 import axiosConfig from '../axiosConfig'
-import { ICreateUser } from './interfaces'
+import { ICreateUser, IUpdateUser } from './interfaces'
 
 const userServices = () => {
+
     async function myProfile() {
-        return axiosConfig.get('/user/my-account')
+        return axiosConfig.get('/user/my-account',{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}} );
+    }
+
+    async function updateMyUser(body:IUpdateUser) {
+        return axiosConfig.put('/user/update', body,{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}} );
     }
 
     async function createUser(body:ICreateUser) {
@@ -12,7 +17,8 @@ const userServices = () => {
 
     return {
         createUser: createUser,
-        myProfile: myProfile
+        myProfile: myProfile,
+        updateMyUser: updateMyUser
      }
 }
 

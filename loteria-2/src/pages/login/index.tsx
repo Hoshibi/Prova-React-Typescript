@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { authActions } from '@store/auth';
 import { toast } from 'react-toastify';
 
@@ -12,6 +12,7 @@ import { Container } from './styles';
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector((state: RootStateOrAny) => state.auth.token);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,9 +47,10 @@ function Login() {
       try {
         const res = await authServices().loginUser(body);
         dispatch(authActions.login(res.data.token.token));
+        window.localStorage.setItem('token',res.data.token.token)
+        console.log( "Token: ", res.data.token.token )
         navigate('/home');
         return res
-        
       }catch (error: any) {
         if(error.status === 401){
           toast.error("E-mail e/ou senhas incorretas!")

@@ -18,7 +18,7 @@ function NewBet() {
 
   return (
     <>
-      <Navbar inHome={false}/>
+      <Navbar inHome={false} inAccount={false}/>
       <LotteryCard infos={info}/>
       <Cart />
     </>

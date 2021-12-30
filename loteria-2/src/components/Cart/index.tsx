@@ -17,10 +17,10 @@ const Cart: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    const token = useSelector((state: RootStateOrAny) => state.auth.token);
     const totalPrice = useSelector((state: RootStateOrAny) => state.game.totalPrice);
     const gamesToCart = useSelector((state: RootStateOrAny) => state.game.gamesToCart);
     const savePurchaseList = useSelector((state: RootStateOrAny) => state.game.savePurchaseList);
+    const token = useSelector((state: RootStateOrAny) => state.auth.token);
     
     const [info, setInfo] = useState([]);
 
@@ -33,11 +33,7 @@ const Cart: React.FC = () => {
         var body = {data: {games: savePurchaseList}}
 
         try {
-            window.localStorage.setItem('token',token)
-            console.log(window.localStorage.getItem('token'));
-
             const res = await betServices().newBet(body);
-            console.log("response: ",res);
             dispatch(gameActions.cleanCart());
             toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
             navigate('/home');

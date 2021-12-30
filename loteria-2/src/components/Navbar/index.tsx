@@ -5,28 +5,42 @@ import { HiArrowRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from '@store/auth';
 import { useDispatch } from 'react-redux';
+import { gameActions } from '@store/gameControl';
 
 interface PropsTypes {
     inHome: boolean;
+    inAccount: boolean;
   }
 
-const Navbar: React.FC<PropsTypes> = ({ inHome }) => {
+const Navbar: React.FC<PropsTypes> = ({ inHome, inAccount }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     function logoutHandler() { 
         dispatch(authActions.logout());
+        window.localStorage.setItem('token',"")
         navigate('/') 
+    }
+
+    function btnHome() {
+        navigate('/home') 
+        dispatch(gameActions.clearGameToFilter());
+    }
+
+    function btnAccount() {
+        navigate('/account') 
+        dispatch(gameActions.clearGameToFilter());
     }
 
     return (
         <NavbarContainer>
             <ul>
-                <li><Logo onClick={() => { navigate('/home') }}>TGL</Logo></li>
-                {!inHome && <li><BtnHome onClick={() => { navigate('/home') }}>Home</BtnHome></li>}
+                <li><Logo onClick={btnHome}>TGL</Logo></li>
+                {!inHome && 
+                <li><BtnHome onClick={btnHome}>Home</BtnHome></li>}
             </ul>
             <ul>
-                <li><button onClick={() => { navigate('/home') }}>Account</button></li>
+                {!inAccount && <li><button onClick={btnAccount}>Account</button></li>}
                 <li><button onClick={logoutHandler}>
                     Log out 
                     <HiArrowRight />

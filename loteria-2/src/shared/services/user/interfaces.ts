@@ -5,3 +5,12 @@ export interface ICreateUser {
 		name: string,
 	}
 }
+
+export interface IUpdateUser {
+	email: string,
+	name: string,
+}
+
+export interface IToken {
+	token : string,
+}

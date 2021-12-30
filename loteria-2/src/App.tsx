@@ -10,6 +10,8 @@ import Registration from '@pages/registration';
 import ResetPassword from '@pages/resetPassword';
 import NewBet from '@pages/newBet';
 import ChangePassword from '@pages/changePassword';
+import Account from '@pages/account';
+import UpdateMyUser from '@pages/updateMyUser';
 import NotFound from '@pages/notFound/';
 
 //Global Style
@@ -26,6 +28,8 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-bet" element={<NewBet />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/update-user" element={<UpdateMyUser />} />
         <Route path='*' element={<NotFound />}/>
       </Routes>
       <GlobalStyle />

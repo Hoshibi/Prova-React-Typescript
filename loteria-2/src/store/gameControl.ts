@@ -24,6 +24,7 @@ interface initialGameStateProps {
   savePurchaseList: Array<purchaseDetail>;
   modalOpen: boolean;
   permissionToAddCart: boolean;
+  gameToFilter: Array<string>
 }
 
 const initialGameState: initialGameStateProps = {
@@ -38,6 +39,7 @@ const initialGameState: initialGameStateProps = {
   savePurchaseList: [],
   modalOpen: false,
   permissionToAddCart: false,
+  gameToFilter: [],
 };
 
 const gameSlice = createSlice({
@@ -249,6 +251,21 @@ const gameSlice = createSlice({
         return state.totalPrice = state.totalPrice + item.price; 
         ;
       })
+    },
+    addGameToFilter(state,action){
+      state.gameToFilter.push(action.payload);
+      console.log("chamou: ",action.payload)
+    },
+    removeGameToFilter(state,action){
+      let arr = [...state.gameToFilter]
+      var index = arr.indexOf(action.payload);
+      if (index > -1) {
+        arr.splice(index, 1);
+      }
+      state.gameToFilter = arr;
+    },
+    clearGameToFilter(state){
+      state.gameToFilter = [];
     }
   },
 });
