@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
 
 //Pages
-import Login from '@pages/login/index';
+import Login from '@pages/login';
 import Home from '@pages/home';
 import Registration from '@pages/registration';
 import ResetPassword from '@pages/resetPassword';

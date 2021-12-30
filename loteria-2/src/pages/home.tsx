@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 
@@ -22,7 +21,6 @@ function Home() {
   }, []);
 
   const getRecentGamesHandler = useCallback(async () => {
-    console.log(gameToFilter)
     betServices().listBet(gameToFilter).then(function (response:any) {setRecentGames(response.data)})
   }, [gameToFilter]);
 

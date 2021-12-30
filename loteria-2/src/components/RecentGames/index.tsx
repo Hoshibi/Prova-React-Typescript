@@ -6,8 +6,7 @@ import { BtnFilter, PurchasedCard } from "../index";
 
 interface PropsTypes {
     recentGameInfo: 
-    {
-        id: number;
+    {   id: number;
         choosen_numbers: string;
         created_at: string;
         price: number;
@@ -46,7 +45,6 @@ const RecentGames: React.FC<PropsTypes> = ({ typeGame, recentGameInfo }) => {
                     <p>Para realizar uma compra aperte em NEW BET.</p>
                 </TextNoPurchased>
             }
-            {console.log(gameToFilter.join(','))}
             
         </Container>
     );

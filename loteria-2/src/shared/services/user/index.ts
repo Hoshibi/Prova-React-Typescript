@@ -4,11 +4,11 @@ import { ICreateUser, IUpdateUser } from './interfaces'
 const userServices = () => {
 
     async function myProfile() {
-        return axiosConfig.get('/user/my-account',{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}} );
+        return axiosConfig.get('/user/my-account');
     }
 
     async function updateMyUser(body:IUpdateUser) {
-        return axiosConfig.put('/user/update', body,{ headers: {"Authorization" : `Bearer ${window.localStorage.getItem('token')}`}} );
+        return axiosConfig.put('/user/update', body );
     }
 
     async function createUser(body:ICreateUser) {
@@ -23,5 +23,3 @@ const userServices = () => {
 }
 
 export default userServices
-
-// Criar 3 métodos que utilizam o axios config para fazer as requisições de users

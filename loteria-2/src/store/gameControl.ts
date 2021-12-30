@@ -254,7 +254,6 @@ const gameSlice = createSlice({
     },
     addGameToFilter(state,action){
       state.gameToFilter.push(action.payload);
-      console.log("chamou: ",action.payload)
     },
     removeGameToFilter(state,action){
       let arr = [...state.gameToFilter]

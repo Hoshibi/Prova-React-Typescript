@@ -4,7 +4,5 @@ interface purchaseDetail {
 }
 
 export interface INewBet {
-    data: {
-        games: Array<purchaseDetail>;
-    }
+    games: Array<purchaseDetail>;
 }

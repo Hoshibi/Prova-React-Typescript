@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { isValidEmail } from '@shared/helpers/isValidEmail';
 
 import { FormContainer, TextAuth, Input } from '@components/index';
 import userServices from '@shared/services/user';
@@ -24,54 +25,37 @@ function Registration() {
     setName(event.target.value);
   };
 
-  function isValidEmail(email:string){
-    var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
-    return regex.test(email);
-  }
-
   //Submit Handler
   const submitHandler = async (event: any) => {
     event.preventDefault();
 
-    var body = { data : {email: email, password: password, name: name} }
-    try {
-      const res = await userServices().createUser(body);
-      return res
-    } catch (error: any) {
-      if(error.status === 400){
-        toast.error("Já existe uma conta com esse Email !", {autoClose: 10000})
-      }
+    let errorMessage = "";
+    if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
+    if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
+    if(name.trim().length === 0) { errorMessage='Campo name vazio! Insira uma nome' }
+    if(email.trim().length === 0 && password.trim().length === 0 && name.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
+    if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
+      errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' 
     }
 
-    // var errorMessage = "";
-
-    // if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
-    // if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
-    // if(name.trim().length === 0) { errorMessage='Campo name vazio! Insira uma nome' }
-    // if(email.trim().length === 0 && password.trim().length === 0 && name.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
-    // if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
-    //   errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' 
-    // }
-
-    // if(!!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
-      
-    //   var body = { data:{email: email, password: password, name: name} }
-    //   try {
-    //     const res = await userServices().createUser(body);
-    //     toast.success('Cadastro realiza com sucesso!', {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
-    //     setName('');
-    //     setEmail('');
-    //     setPassword('');
-    //     navigate('/'); 
-    //     return res
-    //   } catch (error: any) {
-    //     if(error.status === 400){
-    //       toast.error("Já existe uma conta com esse Email !", {autoClose: 10000})
-    //     }
-    //   }
-    // }else{
-    //   toast.warn(errorMessage, {autoClose: 10000})
-    // }
+    if(!!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
+      let body = { email: email, password: password, name: name } 
+      try {
+        const res = await userServices().createUser(body);
+        toast.success('Cadastro realiza com sucesso!', {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
+        setName('');
+        setEmail('');
+        setPassword('');
+        navigate('/'); 
+        return res
+      } catch (error: any) {
+        if(error.status === 400){
+          toast.error("Já existe uma conta com esse Email !", {autoClose: 10000})
+        }
+      }
+    }else{
+      toast.warn(errorMessage, {position: "top-right", autoClose: 10000, closeOnClick: true, pauseOnHover: true});
+    }
   }
 
   return (

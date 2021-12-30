@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { isValidEmail } from '@shared/helpers/isValidEmail';
 
 import { FormContainer, TextAuth, Input } from '@components/index';
 import authServices from '@shared/services/auth';
+import { useDispatch } from 'react-redux';
 import { authActions } from '@store/auth';
 
 function ResetPassword() {
@@ -17,14 +18,8 @@ function ResetPassword() {
     setEmail(event.target.value);
   };
 
-  function isValidEmail(email:string){
-    var regex = new RegExp('^[\\w+.]+@[\\w]+\\.(?:\\w{2,})(?:\\.\\w{2})?$');
-    return regex.test(email);
-  }
-
   const submitHandler = async (event: any) => {
     event.preventDefault();
-    console.log("Oi")   
 
     var errorMessage = "";
     if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }

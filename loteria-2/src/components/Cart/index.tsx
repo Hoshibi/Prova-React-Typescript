@@ -20,7 +20,6 @@ const Cart: React.FC = () => {
     const totalPrice = useSelector((state: RootStateOrAny) => state.game.totalPrice);
     const gamesToCart = useSelector((state: RootStateOrAny) => state.game.gamesToCart);
     const savePurchaseList = useSelector((state: RootStateOrAny) => state.game.savePurchaseList);
-    const token = useSelector((state: RootStateOrAny) => state.auth.token);
     
     const [info, setInfo] = useState([]);
 
@@ -30,40 +29,17 @@ const Cart: React.FC = () => {
     const btnSaveHandler = async (event: any) => {        
         event.preventDefault();
 
-        var body = {data: {games: savePurchaseList}}
-
+        var body = {games: savePurchaseList}
         try {
             const res = await betServices().newBet(body);
-            dispatch(gameActions.cleanCart());
             toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
+            dispatch(gameActions.cleanCart());
             navigate('/home');
             return res
         }catch(error: any) {
-            console.log("error teste: ",error)
+            if(totalPrice < 5) { toast.warn('Valor mínimo autorizado: R$5,00.', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});}
+            else{ toast.error(error.message, {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true}); }
         }
-        
-        // axios({
-        //     method: 'post',
-        //     data: {
-        //         "games": savePurchaseList
-        //     },
-        //     url: 'http://127.0.0.1:3333/bet/new-bet',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`
-        //     }
-        // })
-        // .then(function (response:any) {
-        //     if (response.ok) {
-        //         return response.json();
-        //     } 
-        //     dispatch(gameActions.cleanCart());
-        //     toast.success('Compra realizada com sucesso!', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});
-        //     navigate('/home');
-        // })
-        // .catch((err) => {
-        //     if(totalPrice < 5) { toast.warn('Valor mínimo autorizado: R$5,00.', {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true});}
-        //     else{ toast.error(err.message, {position: "top-right", autoClose: 6000, closeOnClick: true, pauseOnHover: true}); }
-        // });
     }
 
     return (
