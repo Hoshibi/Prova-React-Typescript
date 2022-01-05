@@ -42,7 +42,7 @@ function ChangePassword() {
     <>
       <TextAuth />
       <FormContainer title ="Change password" btnGreenTitle="Change" btnGrayTitle="Back " back={true} onSubmit={submitHandler} isLoading={false} link='/reset-password'>
-        <Input type = "password" placeholder = "Senha" onChange={senhaChangeHandler} value={senha}/>
+        <Input dataCy="password-input" type = "password" placeholder = "Senha" onChange={senhaChangeHandler} value={senha}/>
       </FormContainer>
     </>
   );

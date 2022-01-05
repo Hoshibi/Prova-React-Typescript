@@ -23,3 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('createPostLogin', () => { 
+    cy.intercept(
+        {
+            url: 'http://127.0.0.1:3333/login',
+            method: 'POST'
+        }
+    ).as('postLogin');
+})
+
+Cypress.Commands.add('createPostChangePass', () => { 
+    cy.intercept( 
+        { 
+            url: 'http://127.0.0.1:3333/reset', 
+            method: 'POST'
+        } 
+    ).as('postResetPass');
+})

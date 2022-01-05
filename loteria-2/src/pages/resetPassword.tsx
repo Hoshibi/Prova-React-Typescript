@@ -35,7 +35,7 @@ function ResetPassword() {
           navigate('/change-password');
         return res
       } catch (error: any) {
-        if(error.status === 401){
+        if(error.status === 404){
           toast.error("Não há cadastro com esse e-mail")
         }
       }
@@ -48,7 +48,7 @@ function ResetPassword() {
     <>
       <TextAuth />
       <FormContainer title ="Reset password" btnGreenTitle="Send link" btnGrayTitle="Back " back={true} onSubmit={submitHandler} isLoading={false} link='/'>
-        <Input type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
+        <Input dataCy="email-input" type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
       </FormContainer>
     </>
   );
