@@ -36,23 +36,22 @@ const CardUpdateUser: React.FC<PropsType> = ({name,email}) => {
         event.preventDefault();
 
         var errorMessage = "";
-
-        if(emailInput.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
         if(nameInput.trim().length === 0) { errorMessage='Campo name vazio! Insira uma nome' }
+        if(emailInput.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
         if(emailInput.trim().length === 0 && nameInput.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
         if(!isValidEmail(emailInput) && emailInput.trim().length > 0 && nameInput.trim().length > 0) { errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' }
 
-        if(!!isValidEmail(emailInput) && email.trim().length > 0 && name.trim().length > 0) { 
-        var body = { email: emailInput, name: nameInput }
-        try {
-            const res = await userServices().updateMyUser(body);
-            navigate('/account');
-            return res
-        }catch (error: any) {
-            if(error.status === 401){
-            toast.error("E-mail e/ou senhas incorretas!")
+        if(!!isValidEmail(emailInput) && emailInput.trim().length > 0 && nameInput.trim().length > 0) { 
+            var body = { email: emailInput, name: nameInput }
+            try {
+                const res = await userServices().updateMyUser(body);
+                navigate('/account');
+                return res
+            }catch (error: any) {
+                if(error.status === 404){
+                    toast.error("Dados Inválidos!")
+                }
             }
-        }
         }else{
         toast.warn(errorMessage)
         }
@@ -64,13 +63,13 @@ const CardUpdateUser: React.FC<PropsType> = ({name,email}) => {
         <InfoCard>
             <NameDiv>
                 <BoldText>Name: </BoldText>
-                <Input onChange={nameChangeHandler} value={nameInput}/>
+                <Input data-cy="name-input" onChange={nameChangeHandler} value={nameInput}/>
             </NameDiv>
             <EmailDiv>
                 <BoldText>Email: </BoldText>
-                <Input onChange={emailChangeHandler} value={emailInput}/>
+                <Input data-cy="email-input" onChange={emailChangeHandler} value={emailInput}/>
             </EmailDiv>
-            <BtnEdit onClick={editHandler}>Save</BtnEdit>
+            <BtnEdit data-cy="btnSubmit" onClick={editHandler}>Save</BtnEdit>
             <BtnCancel onClick={ () => {navigate('/account') }}>Cancel</BtnCancel>
         </InfoCard>
     </Container>
@@ -78,7 +77,3 @@ const CardUpdateUser: React.FC<PropsType> = ({name,email}) => {
 };
 
 export default CardUpdateUser;
-
-function dispatch(arg0: any) {
-    throw new Error('Function not implemented.');
-}

@@ -32,7 +32,7 @@ Cypress.Commands.add('createPostLogin', () => {
             method: 'POST'
         }
     ).as('postLogin');
-})
+});
 
 Cypress.Commands.add('createPostChangePass', () => { 
     cy.intercept( 
@@ -41,4 +41,16 @@ Cypress.Commands.add('createPostChangePass', () => {
             method: 'POST'
         } 
     ).as('postResetPass');
-})
+});
+
+Cypress.Commands.add('login', () => {
+    cy.createPostLogin();
+    
+    cy.visit('http://localhost:3000/');
+    cy.get('[data-cy="email-input"]').type(`sayuri@luby.com.br`);
+    cy.get('[data-cy="password-input"]').type('123');
+    
+    cy.get('[data-cy="btnSubmit"]').click();
+
+    cy.wait('@postLogin').its('response.statusCode').should('equal', 200)   
+});
