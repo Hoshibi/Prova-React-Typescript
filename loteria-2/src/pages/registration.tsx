@@ -32,7 +32,7 @@ function Registration() {
     let errorMessage = "";
     if(email.trim().length === 0) { errorMessage='Campo email vazio! Insira um email' }
     if(password.trim().length === 0) { errorMessage='Campo password vazio! Insira uma senha' }
-    if(name.trim().length === 0) { errorMessage='Campo name vazio! Insira uma nome' }
+    if(name.trim().length === 0) { errorMessage='Campo name vazio! Insira um nome' }
     if(email.trim().length === 0 && password.trim().length === 0 && name.trim().length === 0) { errorMessage='Todos os campos vazios! Insira os dados' }
     if(!isValidEmail(email) && email.trim().length > 0 && password.trim().length > 0 && name.trim().length > 0) { 
       errorMessage='Insira um email válido. Exemplo: exemplo@luby.com.br' 
@@ -62,9 +62,9 @@ function Registration() {
     <>
       <TextAuth />
       <FormContainer title = "Registration" btnGreenTitle = "Register" btnGrayTitle = "Back" back = {true}onSubmit={submitHandler} isLoading={false} link='/'>
-        <Input type = "text" placeholder = "Name" onChange={nameChangeHandler} value={name}/>
-        <Input type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
-        <Input type = "password" placeholder = "Password" onChange={passwordChangeHandler} value={password}/>
+        <Input dataCy="name-input" type = "text" placeholder = "Name" onChange={nameChangeHandler} value={name}/>
+        <Input dataCy="email-input" type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
+        <Input dataCy="password-input" type = "password" placeholder = "Password" onChange={passwordChangeHandler} value={password}/>
       </FormContainer>
     </>
   );

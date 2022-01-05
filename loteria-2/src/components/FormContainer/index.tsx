@@ -30,7 +30,7 @@ const FormContainer: React.FC<PropsType> = ({ children, title, btnGreenTitle, bt
         <FormDiv>
           <form onSubmit={onSubmit}>
             {children}
-            <BtnGreen>{btnGreenTitle}<HiArrowRight /></BtnGreen>
+            <BtnGreen data-cy="btnSubmit">{btnGreenTitle}<HiArrowRight /></BtnGreen>
           </form>
         </FormDiv>
           <BtnGray back={typeBtnGray} onClick={buttonNavigateHandler}>
