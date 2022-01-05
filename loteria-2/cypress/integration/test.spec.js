@@ -92,3 +92,76 @@ describe('Registration', () => {
         cy.get('.Toastify__toast--warning').should('have.text','Insira um email válido. Exemplo: exemplo@luby.com.br');
     });
 })
+
+describe('Login', () => {
+    it('Deve realizar o login do usuário', () => {
+        cy.intercept(
+            {
+                url: 'http://127.0.0.1:3333/login',
+                method: 'POST'
+            }
+        ).as('postLogin');
+    
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type(`sayuri@luby.com.br`);
+        cy.get('[data-cy="password-input"]').type('123');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.wait('@postLogin').its('response.statusCode').should('equal', 200)    
+    });
+    it('Erro no login com email errado', () => {
+        cy.intercept(
+            {
+                url: 'http://127.0.0.1:3333/login',
+                method: 'POST'
+            }
+        ).as('postLogin');
+    
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type(`sayuri_errado@luby.com.br`);
+        cy.get('[data-cy="password-input"]').type('123');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.wait('@postLogin').its('response.statusCode').should('equal', 401)  
+    
+    });
+    it('Erro no login com todos os campos vazios', () => {
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type(' ');
+        cy.get('[data-cy="password-input"]').type(' ');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.get('.Toastify__toast--warning').should('have.text','Todos os campos vazios! Insira os dados');
+    });
+    it('Erro no login com o campo email vazio', () => {
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type(' ');
+        cy.get('[data-cy="password-input"]').type('123');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.get('.Toastify__toast--warning').should('have.text','Campo email vazio! Insira um email');
+    });
+    it('Erro no login com o campo senha vazio', () => {
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type('sayuri@luby.com.br');
+        cy.get('[data-cy="password-input"]').type(' ');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.get('.Toastify__toast--warning').should('have.text','Campo password vazio! Insira uma senha');
+    });
+    it('Erro no login com o formato do email inválido', () => {
+        cy.visit('http://localhost:3000/');
+        cy.get('[data-cy="email-input"]').type('sayuri@luby');
+        cy.get('[data-cy="password-input"]').type('123');
+    
+        cy.get('[data-cy="btnSubmit"]').click();
+
+        cy.get('.Toastify__toast--warning').should('have.text','Insira um email válido. Exemplo: exemplo@luby.com.br');
+    });
+})
+

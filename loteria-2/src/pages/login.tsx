@@ -54,8 +54,8 @@ function Login() {
     <>
     <TextAuth />
       <FormContainer title = "Authentication" btnGreenTitle = "Log In" btnGrayTitle = "Sign Up" back = {false} onSubmit={submitHandler} isLoading={false} link='/registration'>
-        <Input type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
-        <Input type = "password" placeholder = "Senha" onChange={passwordChangeHandler} value={password}/>
+        <Input dataCy="email-input" type = "email" placeholder = "Email" onChange={emailChangeHandler} value={email}/>
+        <Input dataCy="password-input" type = "password" placeholder = "Senha" onChange={passwordChangeHandler} value={password}/>
         <ResetPasswordLink>I forget my password</ResetPasswordLink>
       </FormContainer>
     </>
