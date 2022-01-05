@@ -25,8 +25,8 @@ const ButtonGames: React.FC<PropsType> = ({ children, color, price, id, index, r
 
     return (
         <>
-            {gameSelected === id && <ButtonSelectedStyle color={color} onClick={buttonHandler}>{children}</ ButtonSelectedStyle >}
-            {gameSelected !== id && <ButtonStyle color={color} onClick={buttonHandler}>{children}</ ButtonStyle >}
+            {gameSelected === id && <ButtonSelectedStyle data-cy={`id${id}`} color={color} onClick={buttonHandler}>{children}</ ButtonSelectedStyle >}
+            {gameSelected !== id && <ButtonStyle data-cy={`id${id}`} color={color} onClick={buttonHandler}>{children}</ ButtonStyle >}
         </>
     );
 };

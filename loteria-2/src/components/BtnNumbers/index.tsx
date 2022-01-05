@@ -47,7 +47,7 @@ const BtnNumbers: React.FC<PropsType> = ({children, value, color, max, range}) =
     
     return (
         <>
-        <BtnStyle value={value} onClick={selectHandler} selected={isSelected} color={color}>{children}</BtnStyle> 
+        <BtnStyle data-cy={value} value={value} onClick={selectHandler} selected={isSelected} color={color}>{children}</BtnStyle> 
         </>
     );
 };

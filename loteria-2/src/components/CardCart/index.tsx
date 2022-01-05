@@ -29,7 +29,7 @@ const CardCart: React.FC<PropsType> = ( {game, index, numbers} ) => {
                 </BtnLixoDiv>
                 <NumbersDiv color={game[index].color}>
                     <Numbers>{numbers}</Numbers>
-                    <TipoGame color={game[index].color}>{game[index].type}</TipoGame>
+                    <TipoGame data-cy="cardTypeGame" color={game[index].color}>{game[index].type}</TipoGame>
                     <ValorUnid>{`${convertMoneyInReal(game[index].price)}`}</ValorUnid>
                 </NumbersDiv>
             </CardGame>

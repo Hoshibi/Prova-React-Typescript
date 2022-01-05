@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import axios from 'axios';
 import React, { useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +11,7 @@ import { convertMoneyInReal } from '@shared/helpers/convertMonetaryValue';
 import gameServices from '@shared/services/game/';
 import { Container, CartContainer, TitleCart, InfoCart, BtnSave, TotalPriceDiv, TotalTextBold, NumberContainer } from './styles'
 import betServices from '@shared/services/bet';
+import { useEffect } from 'react';
 
 const Cart: React.FC = () => {
     const dispatch = useDispatch();
@@ -24,7 +24,9 @@ const Cart: React.FC = () => {
     const [info, setInfo] = useState([]);
 
     //Get listGames
-    gameServices().listGames.then(function (response:any) {setInfo(response.data.types)})
+    useEffect(() => {
+        gameServices().listGames.then(function (response:any) {setInfo(response.data.types)})
+    },[])
 
     const btnSaveHandler = async (event: any) => {        
         event.preventDefault();
@@ -58,7 +60,7 @@ const Cart: React.FC = () => {
                         <span>TOTAL: {convertMoneyInReal(totalPrice)}</span>
                     </TotalPriceDiv>
                 </InfoCart>
-                <BtnSave onClick={btnSaveHandler}>
+                <BtnSave data-cy="btnSave" onClick={btnSaveHandler}>
                     Save
                     <HiArrowRight />
                 </BtnSave> 
